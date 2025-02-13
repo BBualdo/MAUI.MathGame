@@ -9,14 +9,16 @@
             VerticalOptions="Center" 
             HorizontalOptions="Center"
             FontSize="48" />
-        <VerticalStackLayout Padding="160" Spacing="32">
+        <VerticalStackLayout x:Name="GameFieldStack" Padding="160" Spacing="32">
             <Label x:Name="QuestionLabel" FontSize="64" TextColor="MediumPurple" FontAttributes="Bold" HorizontalTextAlignment="Center" />
             <Entry x:Name="AnswerEntry" WidthRequest="200" FontSize="32" HorizontalTextAlignment="Center" />
-            <Button Text="Answer" FontSize="32" TextColor="White" HorizontalOptions="Center" />
-            
-            <Label></Label>
-            <Label></Label>
+            <Button Text="Answer" FontSize="32" TextColor="White" HorizontalOptions="Center" Clicked="OnAnswerSubmit" />
+
+            <Label x:Name="ResultLabel" TextColor="Green" HorizontalTextAlignment="Center"></Label>
         </VerticalStackLayout>
-        
+
+        <VerticalStackLayout>
+            <Label x:Name="GameOverLabel" HorizontalOptions="Center" FontSize="72" />
+        </VerticalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

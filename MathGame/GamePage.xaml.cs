@@ -1,3 +1,6 @@
+using Microsoft.Maui.Graphics.Text;
+using Microsoft.UI.Text;
+
 namespace MathGame;
 
 public partial class GamePage : ContentPage
@@ -5,7 +8,10 @@ public partial class GamePage : ContentPage
 	public string GameType { get; set; }
 	int firstNum = 0;
 	int secondNum = 0;
-
+	int score = 0;
+	const int totalQuestions = 2; // TODO: Add ability to choose amount of questions
+	int questionsLeft = totalQuestions;
+	
 	public GamePage(string gameType)
 	{
 		InitializeComponent();
@@ -40,5 +46,54 @@ public partial class GamePage : ContentPage
 		}
 
 		QuestionLabel.Text = $"{firstNum} {operand} {secondNum} ?";
+    }
+
+    private void OnAnswerSubmit(object sender, EventArgs e)
+    {
+		if (!int.TryParse(AnswerEntry.Text, out int answer))
+		{
+			ResultLabel.Text = "Please enter a number";
+			ResultLabel.TextColor = Colors.Red;
+			return;
+		}
+
+		bool isCorrect = false;
+		
+		switch (GameType)
+		{
+			case "Addition":
+				isCorrect = answer == firstNum + secondNum; 
+				break;
+			case "Subtraction":
+				isCorrect = answer == firstNum - secondNum;
+				break;
+			case "Multiplication":
+				isCorrect = answer == firstNum * secondNum;
+				break;
+			case "Division":
+				isCorrect = answer == firstNum / secondNum;
+				break;
+		}
+
+		if (isCorrect)
+		{
+            ResultLabel.Text = "Correct!";
+            ResultLabel.TextColor = Colors.Green;
+            score++;
+        } else
+		{
+            ResultLabel.Text = "Wrong answer!";
+            ResultLabel.TextColor = Colors.Red;
+        }
+
+		AnswerEntry.Text = "";
+
+		if (--questionsLeft > 0) GenerateQuestion();
+		else GameOver();
+    }
+
+	private void GameOver() {
+        GameFieldStack.Clear();
+		GameOverLabel.Text = $"Game Over! Your score: {score}/{totalQuestions}";
     }
 }
