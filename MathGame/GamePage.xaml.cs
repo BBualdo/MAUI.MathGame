@@ -93,7 +93,13 @@ public partial class GamePage : ContentPage
     }
 
 	private void GameOver() {
-        GameFieldStack.Clear();
+        GameFieldStack.IsVisible = false;
 		GameOverLabel.Text = $"Game Over! Your score: {score}/{totalQuestions}";
+		BackToMenuBtn.IsVisible = true;
+    }
+
+    private void OnBackToMenu(object sender, EventArgs e)
+    {
+		Navigation.PushAsync(new MainPage());
     }
 }
