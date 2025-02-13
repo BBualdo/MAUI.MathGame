@@ -2,5 +2,27 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MathGame.MainPage">
-    
+    <VerticalStackLayout Padding="24" Spacing="64">
+        <Label HorizontalOptions="Center" FontSize="72">Math Game</Label>
+        <Label HorizontalOptions="Center" FontSize="48">What operation would you like to choose?</Label>
+        <Grid ColumnSpacing="12" RowSpacing="12">
+            <!-- Defining 3x2 grid layout -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Button AutomationId="Addition" BackgroundColor="MediumPurple" TextColor="White" FontSize="32" Grid.Row="0" Grid.Column="0" Text="+" Clicked="OnGameChosen" />
+            <Button AutomationId="Subtraction" BackgroundColor="MediumPurple" TextColor="White" FontSize="32" Grid.Row="0" Grid.Column="1" Text="-" Clicked="OnGameChosen" />
+            <Button AutomationId="Multiplication" BackgroundColor="MediumPurple" TextColor="White" FontSize="32" Grid.Row="1" Grid.Column="0" Text="*" Clicked="OnGameChosen" />
+            <Button AutomationId="Division" BackgroundColor="MediumPurple" TextColor="White" FontSize="32" Grid.Row="1" Grid.Column="1" Text="/" Clicked="OnGameChosen" />
+            <Button AutomationId="PreviousGames" BackgroundColor="Green" Grid.Column="0" Grid.Row="2" Margin="0,24,0,0" FontSize="32" TextColor="White" Grid.ColumnSpan="2" Text="View previous games" Clicked="OnPreviosGamesChosen" />
+        </Grid>
+    </VerticalStackLayout>
 </ContentPage>
