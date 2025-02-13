@@ -1,10 +1,12 @@
-using Microsoft.Maui.Graphics.Text;
-using Microsoft.UI.Text;
+using MathGame.Data;
+using MathGame.Models;
+using MathGame.WinUI;
 
 namespace MathGame;
 
 public partial class GamePage : ContentPage
 {
+	private Game _game { get; set; } = new Game();
 	public string GameType { get; set; }
 	int firstNum = 0;
 	int secondNum = 0;
@@ -16,8 +18,21 @@ public partial class GamePage : ContentPage
 	{
 		InitializeComponent();
 		GameType = gameType;
+		AssignGameType();
 		BindingContext = this;
 		GenerateQuestion();
+	}
+
+	private void AssignGameType()
+	{
+        _game.Type = GameType switch
+		{
+			"Addition" => GameOperation.Addition,
+			"Subtraction" => GameOperation.Subtraction,
+			"Multiplication" => GameOperation.Multiplication,
+			"Division" => GameOperation.Division,
+			_ => throw new ArgumentException("Invalid Operation")
+		};
 	}
 
 	private void GenerateQuestion()
@@ -95,7 +110,12 @@ public partial class GamePage : ContentPage
 	private void GameOver() {
         GameFieldStack.IsVisible = false;
 		GameOverLabel.Text = $"Game Over! Your score: {score}/{totalQuestions}";
-		BackToMenuBtn.IsVisible = true;
+        _game.DatePlayed = DateTime.Now;
+        _game.Score = score;
+		
+		App.GamesRepository.AddGame(_game); // Problem here, An object reference is required for the non-static field, method or property
+
+        BackToMenuBtn.IsVisible = true;
     }
 
     private void OnBackToMenu(object sender, EventArgs e)

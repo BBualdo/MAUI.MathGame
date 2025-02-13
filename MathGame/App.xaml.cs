@@ -1,10 +1,14 @@
-﻿namespace MathGame;
+﻿using MathGame.Data;
+
+namespace MathGame;
 
 public partial class App : Application
 {
-    public App()
+    public GamesRepository GamesRepository { get; set; }
+    public App(GamesRepository gamesRepository)
     {
         InitializeComponent();
+        GamesRepository = gamesRepository;
     }
 
     protected override Window CreateWindow(IActivationState? activationState)
