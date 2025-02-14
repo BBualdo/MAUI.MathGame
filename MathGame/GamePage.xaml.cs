@@ -113,8 +113,7 @@ public partial class GamePage : ContentPage
         _game.DatePlayed = DateTime.Now;
         _game.Score = score;
 		
-		App.GamesRepository.AddGame(_game); // Problem here, An object reference is required for the non-static field, method or property
-
+		App.GamesRepository.AddGame(_game);
         BackToMenuBtn.IsVisible = true;
     }
 

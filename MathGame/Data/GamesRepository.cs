@@ -11,9 +11,10 @@ public class GamesRepository
     public GamesRepository(string dbPath)
     {
         _dbPath = dbPath;
+        Init();
     }
 
-    public void Init()
+    private void Init()
     {
         using (_connection = new SQLiteConnection(_dbPath))
             _connection.CreateTable<Game>();
@@ -21,8 +22,8 @@ public class GamesRepository
 
     public List<Game> GetGames()
     {
-        Init();
-        return _connection.Table<Game>().ToList();
+        using (_connection = new SQLiteConnection(_dbPath))
+            return _connection.Table<Game>().ToList();
     }
 
     public void AddGame(Game game)
@@ -34,6 +35,9 @@ public class GamesRepository
     public void DeleteGame(int id)
     {
         using (_connection = new SQLiteConnection(_dbPath))
-            _connection.Delete(id);
+        {
+            var game = _connection.Find<Game>(id);
+            _connection.Delete(game);
+        }
     }
 }

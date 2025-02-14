@@ -4,7 +4,7 @@ namespace MathGame;
 
 public partial class App : Application
 {
-    public GamesRepository GamesRepository { get; set; }
+    public static GamesRepository GamesRepository { get; set; }
     public App(GamesRepository gamesRepository)
     {
         InitializeComponent();
